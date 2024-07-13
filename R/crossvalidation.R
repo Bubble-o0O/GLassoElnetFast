@@ -38,7 +38,7 @@
 #' Y <- array(rnorm(n*p),dim=c(n,p)) # data-matrix
 #' object <- crossvalidation(nfold=5,Y=Y,ind=sample(1:n),lambda=seq(0.1,0.4,length.out=20))
 #' }
-#' @importFrom stats var cor
+#' @importFrom stats cov cor
 #' @export
 #' @useDynLib GLassoElnetFast
 
@@ -55,7 +55,7 @@ crossvalidation <-function(nfold=5L,Y,lambda,alpha,ind=NULL,type=NULL,Target=NUL
   n = nrow(Y)
   p = ncol(Y)
 
-  if(cor==TRUE){ f = function(x){return(cor(x))} }else{ f = function(x){return(var(x))} }
+  if(cor==TRUE){ f = function(x){return(cor(x))} }else{ f = function(x){return((nrow(x) - 1) / nrow(x) * cov(x))} }
   if(is.null(type)){ if(is.null(Target)){Target <- matrix(0,p,p)}; fTarget <- function(Y){Target}  }else{ fTarget <- function(Y){target(Y,type=type,cor=cor)} }
 
 
