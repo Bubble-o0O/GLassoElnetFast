@@ -37,7 +37,7 @@ target = function(Y=NULL,S=NULL,type,cor=FALSE,fraction=1e-4,const=1,safety.scal
   else if(is.null(Y)==FALSE){ p=ncol(Y)}
   else{ stop("Input either Y or S") }
 
-  if(cor==FALSE){f <- function(x){cov(x)}}else{ f <- function(x){cor(x)}}
+  if(cor==FALSE){f <- function(x){(nrow(x) - 1) / nrow(x) * cov(x)}}else{ f <- function(x){cor(x)}}
 
   if(type=="Identity"){ Target=diag(p)}
   else if(type=="vI"){ if(is.null(S)){ S=f(Y)}; Target=1/mean(diag(S))*diag(p)}
