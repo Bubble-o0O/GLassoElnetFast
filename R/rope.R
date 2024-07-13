@@ -16,7 +16,7 @@
 #' n <- 10
 #' p <- 5
 #' Y <- array(rnorm(n*p),dim=c(n,p)) # data-matrix
-#' S <- cov(Y) # sample covariance matrix
+#' S <- (nrow(Y) - 1) / nrow(Y) * cov(Y) # sample covariance matrix
 #' Theta <- rope(S=S,lambda=0.5)
 #' }
 #' @export
